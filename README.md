@@ -53,7 +53,7 @@ sudo /etc/init.d/bluetooth restart
 
 Clone Jarvis
 ```
-git clone https://github.snei.sony.com/khirakawa/jarvis.git
+git clone https://github.com/khirakawa/jarvis.git
 ```
 
 Install dependencies
