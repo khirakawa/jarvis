@@ -22,7 +22,8 @@ class Bluetooth:
 
     def __init__(self):
         os.system("hciconfig hci0 class 0x002540")
-        os.system("hciconfig hci0 name Raspberry\ Pi")
+        os.system("hciconfig hci0 name Jarvis\ Keyboard v2")
+        os.system("hciconfig hci0 piscan")
 
         # Define our two server sockets for communication
         self.scontrol = BluetoothSocket(L2CAP)
