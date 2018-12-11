@@ -30,7 +30,7 @@ class Bluetooth:
     self.bus = dbus.SystemBus()
 
     # self.manager = dbus.Interface(self.bus.get_object("org.bluez", "/"), "org.bluez.Manager")
-    self.manager = dbus.Interface(bus.get_object("org.bluez", "/org/bluez"), "org.bluez.ProfileManager1")
+    self.manager = dbus.Interface(self.bus.get_object("org.bluez", "/org/bluez"), "org.bluez.ProfileManager1")
     # adapter_path = self.manager.DefaultAdapter()
     # self.service = dbus.Interface(self.bus.get_object("org.bluez", adapter_path), "org.bluez.Service")
 
