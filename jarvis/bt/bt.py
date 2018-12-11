@@ -40,7 +40,7 @@ class Bluetooth:
   def listen(self):
     opts = {
       "AutoConnect" :	True,
-      "Service":
+      "Service": self.service_record
     }
 
     self.manager.RegisterProfile(options.path, options.uuid, opts)

@@ -7,11 +7,7 @@ import tornado.options
 import tornado.web
 import tornado.websocket
 import os
-try:
-    from jarvis.bt import bt as bt
-except:
-    print "Warning: This isn't a linux box.  Importing btdev instead."
-    from jarvis.bt import btdev as bt
+from jarvis.bt import bt as bt
 from jarvis.keyboard import keyboard
 
 if not os.geteuid() == 0:
