@@ -49,6 +49,7 @@ class Bluetooth:
     # self.service_handle = self.service.AddRecord(self.service_record)
     print "Service record added"
     self.scontrol.listen(1) # Limit of 1 connection
+    self.send('{"pressedKeys": ["KEY_PAUSE"]}')
     self.sinterrupt.listen(1)
     print "Waiting for a connection"
     self.ccontrol, self.cinfo = self.scontrol.accept()
