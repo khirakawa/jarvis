@@ -14,8 +14,10 @@ objects = manager.GetManagedObjects()
 
 for path, ifaces in objects.iteritems():
     adapter = ifaces.get(ADAPTER_IFACE)
+    print adapter
     if adapter is None:
         continue
     obj = bus.get_object(SERVICE_NAME, path)
     adapter = dbus.Interface(obj, ADAPTER_IFACE)
     print obj
+    print adapter

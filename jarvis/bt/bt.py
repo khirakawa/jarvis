@@ -29,15 +29,23 @@ class Bluetooth:
     self.sinterrupt.bind(("", Bluetooth.P_INTR))
     self.bus = dbus.SystemBus()
 
-    self.manager = dbus.Interface(self.bus.get_object("org.bluez", "/"), "org.bluez.Manager")
-    adapter_path = self.manager.DefaultAdapter()
-    self.service = dbus.Interface(self.bus.get_object("org.bluez", adapter_path), "org.bluez.Service")
+    # self.manager = dbus.Interface(self.bus.get_object("org.bluez", "/"), "org.bluez.Manager")
+    self.manager = dbus.Interface(bus.get_object("org.bluez", "/org/bluez"), "org.bluez.ProfileManager1")
+    # adapter_path = self.manager.DefaultAdapter()
+    # self.service = dbus.Interface(self.bus.get_object("org.bluez", adapter_path), "org.bluez.Service")
 
     with open(sys.path[0] + handler.getSdpRecordPath(), "r") as fh:
       self.service_record = fh.read()
 
   def listen(self):
-    self.service_handle = self.service.AddRecord(self.service_record)
+    opts = {
+      "AutoConnect" :	True,
+      "Service":
+    }
+
+    self.manager.RegisterProfile(options.path, options.uuid, opts)
+
+    # self.service_handle = self.service.AddRecord(self.service_record)
     print "Service record added"
     self.scontrol.listen(1) # Limit of 1 connection
     self.sinterrupt.listen(1)
