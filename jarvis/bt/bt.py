@@ -40,7 +40,7 @@ class Bluetooth:
   def listen(self):
     opts = {
       "AutoConnect" :	True,
-      "Service": sys.path[0] + handler.getSdpRecordPath()
+      "Service": sys.path[0] + self.handler.getSdpRecordPath()
     }
 
     print opts
