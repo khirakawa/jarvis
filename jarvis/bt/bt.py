@@ -10,6 +10,7 @@ import time
 import evdev
 from evdev import *
 import json
+import uuid
 
 class Bluetooth:
   P_CTRL = 17
@@ -34,18 +35,16 @@ class Bluetooth:
     # adapter_path = self.manager.DefaultAdapter()
     # self.service = dbus.Interface(self.bus.get_object("org.bluez", adapter_path), "org.bluez.Service")
 
-    # with open(sys.path[0] + handler.getSdpRecordPath(), "r") as fh:
-    #   self.service_record = fh.read()
+    with open(sys.path[0] + self.handler.getSdpRecordPath(), "r") as fh:
+      self.service_record = fh.read()
 
   def listen(self):
     opts = {
       "AutoConnect" :	True,
-      "Service": sys.path[0] + self.handler.getSdpRecordPath()
+      "Service": self.service_record
     }
 
-    print opts
-
-    self.manager.RegisterProfile("/home/pi/work/jarvis/profile", None, opts)
+    self.manager.RegisterProfile("/home/pi/work/jarvis/profile", uuid.uuid4(), opts)
 
     # self.service_handle = self.service.AddRecord(self.service_record)
     print "Service record added"
