@@ -10,7 +10,7 @@ import os
 import keymap
 import sys
 import json
-import kb_client
+from kb_client import *
 
 if not os.geteuid() == 0:
     sys.exit("Only root can run this script")
