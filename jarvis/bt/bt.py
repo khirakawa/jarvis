@@ -34,14 +34,16 @@ class Bluetooth:
     # adapter_path = self.manager.DefaultAdapter()
     # self.service = dbus.Interface(self.bus.get_object("org.bluez", adapter_path), "org.bluez.Service")
 
-    with open(sys.path[0] + handler.getSdpRecordPath(), "r") as fh:
-      self.service_record = fh.read()
+    # with open(sys.path[0] + handler.getSdpRecordPath(), "r") as fh:
+    #   self.service_record = fh.read()
 
   def listen(self):
     opts = {
       "AutoConnect" :	True,
-      "Service": self.service_record
+      "Service": sys.path[0] + handler.getSdpRecordPath()
     }
+
+    print opts
 
     self.manager.RegisterProfile("/home/pi/work/jarvis/profile", None, opts)
 
