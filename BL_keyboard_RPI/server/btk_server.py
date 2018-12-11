@@ -1,8 +1,8 @@
 #!/usr/bin/python
 #
 # YAPTB Bluetooth keyboard emulator DBUS Service
-# 
-# Adapted from 
+#
+# Adapted from
 # www.linuxuser.co.uk/tutorials/emulate-bluetooth-keyboard-with-the-raspberry-pi
 #
 #
@@ -52,7 +52,7 @@ class BTKbBluezProfile(dbus.service.Object):
                             print("  %s = 0x%04x" % (key, properties[key]))
                     else:
                             print("  %s = %s" % (key, properties[key]))
-            
+
 
 
     @dbus.service.method("org.bluez.Profile1", in_signature="o", out_signature="")
@@ -68,29 +68,29 @@ class BTKbBluezProfile(dbus.service.Object):
 
 
 #
-#create a bluetooth device to emulate a HID keyboard, 
+#create a bluetooth device to emulate a HID keyboard,
 # advertize a SDP record using our bluez profile class
 #
 class BTKbDevice():
-    #change these constants 
+    #change these constants
     MY_ADDRESS="43:43:A1:12:1F:AC"
     MY_DEV_NAME="ThanhLe_Keyboard"
 
     #define some constants
     P_CTRL =17  #Service port - must match port configured in SDP record
-    P_INTR =19  #Service port - must match port configured in SDP record#Interrrupt port  
+    P_INTR =19  #Service port - must match port configured in SDP record#Interrrupt port
     PROFILE_DBUS_PATH="/bluez/yaptb/btkb_profile" #dbus path of  the bluez profile we will create
     SDP_RECORD_PATH = sys.path[0] + "/sdp_record.xml" #file path of the sdp record to laod
     UUID="00001124-0000-1000-8000-00805f9b34fb"
-             
- 
+
+
     def __init__(self):
 
         print("Setting up BT device")
 
         self.init_bt_device()
         self.init_bluez_profile()
-                    
+
 
     #configure the bluetooth hardware device
     def init_bt_device(self):
@@ -142,12 +142,12 @@ class BTKbDevice():
         except:
             sys.exit("Could not open the sdp record. Exiting...")
 
-        return fh.read()   
+        return fh.read()
 
 
 
     #listen for incoming client connections
-    #ideally this would be handled by the Bluez 5 profile 
+    #ideally this would be handled by the Bluez 5 profile
     #but that didn't seem to work
     def listen(self):
 
@@ -155,11 +155,11 @@ class BTKbDevice():
         self.scontrol=BluetoothSocket(L2CAP)
         self.sinterrupt=BluetoothSocket(L2CAP)
 
-        #bind these sockets to a port - port zero to select next available		
+        #bind these sockets to a port - port zero to select next available
         self.scontrol.bind((self.MY_ADDRESS,self.P_CTRL))
         self.sinterrupt.bind((self.MY_ADDRESS,self.P_INTR ))
 
-        #Start listening on the server sockets 
+        #Start listening on the server sockets
         self.scontrol.listen(1) # Limit of 1 connection
         self.sinterrupt.listen(1)
 
@@ -179,7 +179,7 @@ class BTKbDevice():
 
 
 #define a dbus service that emulates a bluetooth keyboard
-#this will enable different clients to connect to and use 
+#this will enable different clients to connect to and use
 #the service
 class  BTKbService(dbus.service.Object):
 
@@ -197,7 +197,7 @@ class  BTKbService(dbus.service.Object):
         #start listening for connections
         self.device.listen();
 
-            
+
     @dbus.service.method('org.yaptb.btkbservice', in_signature='yay')
     def send_keys(self,modifier_byte,keys):
 
@@ -213,7 +213,7 @@ class  BTKbService(dbus.service.Object):
                 cmd_str+=chr(key_code)
             count+=1
 
-        self.device.send_string(cmd_str);		
+        self.device.send_string(cmd_str);
 
 
 #main routine
@@ -225,4 +225,4 @@ if __name__ == "__main__":
     DBusGMainLoop(set_as_default=True)
     myservice = BTKbService();
     gtk.main()
-    
+
