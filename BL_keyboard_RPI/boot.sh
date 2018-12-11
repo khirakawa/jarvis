@@ -12,7 +12,8 @@ export C_PATH=$(pwd)
 cd $C_PATH && sudo /usr/bin/bluetoothctl &
 cd $C_PATH && sudo /usr/sbin/bluetoothd --nodetach --debug -p time &
 cd $C_PATH/server && sudo python btk_server.py * &
-cd $C_PATH/keyboard/ && sleep 5 && sudo python kb_client.py
+# cd $C_PATH/keyboard/ && sleep 5 && sudo python kb_client.py
+# cd $C_PATH/keyboard/ && sleep 5 && sudo python websocket.py
 
 # #Create Tmux session
 # tmux has-session -t mlabviet
