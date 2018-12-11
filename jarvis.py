@@ -1,3 +1,6 @@
+import sys
+sys.path.append('/home/pi/.local/lib/python2.7/site-packages')
+
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
