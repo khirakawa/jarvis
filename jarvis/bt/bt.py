@@ -43,7 +43,7 @@ class Bluetooth:
       "Service": self.service_record
     }
 
-    self.manager.RegisterProfile(options.path, options.uuid, opts)
+    self.manager.RegisterProfile("/home/pi/work/jarvis/profile", None, opts)
 
     # self.service_handle = self.service.AddRecord(self.service_record)
     print "Service record added"
